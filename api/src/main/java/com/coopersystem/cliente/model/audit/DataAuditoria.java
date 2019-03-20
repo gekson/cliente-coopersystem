@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.coopersystem.cliente.model;
+package com.coopersystem.cliente.model.audit;
 
 import java.io.Serializable;
 import java.time.Instant;

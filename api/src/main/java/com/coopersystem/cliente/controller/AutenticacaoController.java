@@ -28,11 +28,11 @@ import com.coopersystem.cliente.model.PermissaoEnum;
 import com.coopersystem.cliente.model.Usuario;
 import com.coopersystem.cliente.repository.PermissaoRepository;
 import com.coopersystem.cliente.repository.UsuarioRepository;
+import com.coopersystem.cliente.request.LoginRequest;
+import com.coopersystem.cliente.request.SignUpRequest;
 import com.coopersystem.cliente.security.ApiResponse;
 import com.coopersystem.cliente.security.JwtAuthenticationResponse;
 import com.coopersystem.cliente.security.JwtTokenProvider;
-import com.coopersystem.cliente.security.LoginRequest;
-import com.coopersystem.cliente.security.SignUpRequest;
 
 /**
  * @author gekson

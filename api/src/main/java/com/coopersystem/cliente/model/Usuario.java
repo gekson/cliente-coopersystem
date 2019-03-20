@@ -19,6 +19,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.coopersystem.cliente.model.audit.DataAuditoria;
+
 import lombok.Getter;
 import lombok.Setter;
 

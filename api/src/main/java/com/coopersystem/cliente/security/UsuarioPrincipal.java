@@ -32,6 +32,8 @@ public class UsuarioPrincipal implements UserDetails {
 	private Long id;
 
     private String login;
+    
+    private String nome;
 
     @JsonIgnore
     private String senha;

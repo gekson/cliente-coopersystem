@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.coopersystem.cliente.security;
+package com.coopersystem.cliente.request;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,10 +14,13 @@ import lombok.Setter;
  *
  */
 @Getter @Setter
-public class LoginRequest {
-	@NotBlank
+public class SignUpRequest {
+
+    @NotBlank
+    @Size(min = 3, max = 15)
     private String login;
 
     @NotBlank
+    @Size(min = 6, max = 20)
     private String senha;
 }
