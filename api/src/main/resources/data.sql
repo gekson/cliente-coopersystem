@@ -6,3 +6,5 @@ INSERT INTO usuarios(login, senha, CREATED_AT, UPDATED_AT) VALUES('comum', '$2a$
 
 INSERT INTO usuario_permissoes(usuario_id, permissao_id) VALUES(1,1);
 INSERT INTO usuario_permissoes(usuario_id, permissao_id) VALUES(2,2);
+
+INSERT INTO clientes(nome,cpf,cep,logradouro,bairro,cidade,uf, CREATED_AT, UPDATED_AT) VALUES('Teste', '12345678911', '12345-78', 'logradouro', 'bairro', 'cidade', 'DF','2019-03-20', '2019-03-20' );
