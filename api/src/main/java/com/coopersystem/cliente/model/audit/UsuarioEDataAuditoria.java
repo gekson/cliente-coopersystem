@@ -4,9 +4,12 @@
 package com.coopersystem.cliente.model.audit;
 
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +18,11 @@ import lombok.Setter;
  * @author gekson
  *
  */
+@MappedSuperclass
+@JsonIgnoreProperties(
+        value = {"createdBy", "updatedBy"},
+        allowGetters = true
+)
 @Getter @Setter
 public abstract class UsuarioEDataAuditoria extends DataAuditoria {
     /**

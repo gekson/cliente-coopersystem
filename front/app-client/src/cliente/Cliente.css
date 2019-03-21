@@ -11,7 +11,7 @@
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
 }
 
-.cliente-question {
+.cliente-nome {
     font-weight: 500;
     font-size: 21px;
     color: rgba(0, 0, 0, 0.85);
@@ -19,7 +19,7 @@
 }
 
 @media (max-width: 768px) {
-    .cliente-question {
+    .cliente-nome {
         font-size: 18px;
     }
 }

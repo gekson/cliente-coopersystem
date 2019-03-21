@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,10 +59,10 @@ public class ClienteController {
     }
 	
 	@PostMapping
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('PERMISSAO_ADMIN')")
     public ResponseEntity<?> addCliente(@Valid @RequestBody ClienteRequest clienteRequest) {
         Cliente cliente = clienteService.addCliente(clienteRequest);
-
+        
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{clienteId}")
                 .buildAndExpand(cliente.getId()).toUri();

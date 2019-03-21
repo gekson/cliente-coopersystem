@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createCliente } from '../util/APIUtils';
-import { MAX_CHOICES, POLL_QUESTION_MAX_LENGTH, POLL_CHOICE_MAX_LENGTH } from '../constants';
+import { CLIENTE_NOME_MAX_LENGTH } from '../constants';
 import './NewCliente.css';  
 import { Form, Input, Button, Icon, Select, Col, notification } from 'antd';
 const Option = Select.Option;
@@ -11,53 +11,54 @@ class NewCliente extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            question: {
+            nome: {
                 text: ''
             },
-            choices: [{
+            cpf: {
                 text: ''
-            }, {
+            },
+            cep: {
                 text: ''
-            }],
-            clienteLength: {
-                days: 1,
-                hours: 0
+            },
+            logradouro: {
+                text: ''
+            },
+            bairro: {
+                text: ''
+            },
+            cidade: {
+                text: ''
+            },
+            uf: {
+                text: ''
+            },
+            complemento: {
+                text: ''
             }
         };
-        this.addChoice = this.addChoice.bind(this);
-        this.removeChoice = this.removeChoice.bind(this);
+        
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleQuestionChange = this.handleQuestionChange.bind(this);
-        this.handleChoiceChange = this.handleChoiceChange.bind(this);
-        this.handleClienteDaysChange = this.handleClienteDaysChange.bind(this);
-        this.handleClienteHoursChange = this.handleClienteHoursChange.bind(this);
+        this.handleNomeChange = this.handleNomeChange.bind(this);        
         this.isFormInvalid = this.isFormInvalid.bind(this);
+        this.handleCpfChange = this.handleCpfChange.bind(this);
+        this.handleBairroChange = this.handleBairroChange.bind(this);
+        this.handleCepChange = this.handleCepChange.bind(this);
+        this.handleLogradouroChange = this.handleLogradouroChange.bind(this);
+        this.handleCidadeChange = this.handleCidadeChange.bind(this);
+        this.handleUfChange = this.handleUfChange.bind(this);
     }
-
-    addChoice(event) {
-        const choices = this.state.choices.slice();        
-        this.setState({
-            choices: choices.concat([{
-                text: ''
-            }])
-        });
-    }
-
-    removeChoice(choiceNumber) {
-        const choices = this.state.choices.slice();
-        this.setState({
-            choices: [...choices.slice(0, choiceNumber), ...choices.slice(choiceNumber+1)]
-        });
-    }
+    
 
     handleSubmit(event) {
         event.preventDefault();
         const clienteData = {
-            question: this.state.question.text,
-            choices: this.state.choices.map(choice => {
-                return {text: choice.text} 
-            }),
-            clienteLength: this.state.clienteLength
+            nome: this.state.nome.text,
+            cpf: this.state.cpf.text,
+            cep: this.state.cep.text,
+            logradouro: this.state.logradouro.text,
+            bairro: this.state.bairro.text,
+            cidade: this.state.cidade.text,
+            uf: this.state.uf.text
         };
 
         createCliente(clienteData)
@@ -65,26 +66,26 @@ class NewCliente extends Component {
             this.props.history.push("/");
         }).catch(error => {
             if(error.status === 401) {
-                this.props.handleLogout('/login', 'error', 'You have been logged out. Please login create cliente.');    
+                this.props.handleLogout('/login', 'error', 'Você foi desconectado. Por favor faça o login para criar um cliente.');    
             } else {
                 notification.error({
                     message: 'Clientes Coopersystem',
-                    description: error.message || 'Sorry! Something went wrong. Please try again!'
+                    description: error.message || 'Desculpe! Algo deu errado. Por favor, tente novamente!'
                 });              
             }
         });
     }
 
-    validateQuestion = (questionText) => {
-        if(questionText.length === 0) {
+    validateNome = (nomeText) => {
+        if(nomeText.length === 0) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Please enter your question!'
+                errorMsg: 'Insira seu nome!'
             }
-        } else if (questionText.length > POLL_QUESTION_MAX_LENGTH) {
+        } else if (nomeText.length > CLIENTE_NOME_MAX_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Question is too long (Maximum ${POLL_QUESTION_MAX_LENGTH} characters allowed)`
+                errorMsg: `O nome é muito grande (Maximo de  ${CLIENTE_NOME_MAX_LENGTH} caracters)`
             }    
         } else {
             return {
@@ -94,26 +95,26 @@ class NewCliente extends Component {
         }
     }
 
-    handleQuestionChange(event) {
+    handleNomeChange(event) {
         const value = event.target.value;
         this.setState({
-            question: {
+            nome: {
                 text: value,
-                ...this.validateQuestion(value)
+                ...this.validateNome(value)
             }
         });
     }
 
-    validateChoice = (choiceText) => {
-        if(choiceText.length === 0) {
+    validateCpf = (cpfText) => {
+        if(cpfText.length === 0) {
             return {
                 validateStatus: 'error',
-                errorMsg: 'Please enter a choice!'
+                errorMsg: 'Insira seu nome!'
             }
-        } else if (choiceText.length > POLL_CHOICE_MAX_LENGTH) {
+        } else if (cpfText.length > CLIENTE_NOME_MAX_LENGTH) {
             return {
                 validateStatus: 'error',
-                errorMsg: `Choice is too long (Maximum ${POLL_CHOICE_MAX_LENGTH} characters allowed)`
+                errorMsg: `O nome é muito grande (Maximo de  ${CLIENTE_NOME_MAX_LENGTH} caracters)`
             }    
         } else {
             return {
@@ -123,146 +124,153 @@ class NewCliente extends Component {
         }
     }
 
-    handleChoiceChange(event, index) {
-        const choices = this.state.choices.slice();
+    handleCpfChange(event) {
         const value = event.target.value;
-
-        choices[index] = {
-            text: value,
-            ...this.validateChoice(value)
-        }
-
         this.setState({
-            choices: choices
+            cpf: {
+                text: value,
+                ...this.validateCpf(value)
+            }
         });
     }
 
-
-    handleClienteDaysChange(value) {
-        const clienteLength = Object.assign(this.state.clienteLength, {days: value});
+    handleCepChange(event) {
+        const value = event.target.value;
         this.setState({
-            clienteLength: clienteLength
+            cep: {
+                text: value,
+                ...this.validateCpf(value)
+            }
         });
     }
 
-    handleClienteHoursChange(value) {
-        const clienteLength = Object.assign(this.state.clienteLength, {hours: value});
+    handleLogradouroChange(event) {
+        const value = event.target.value;
         this.setState({
-            clienteLength: clienteLength
+            logradouro: {
+                text: value,
+                ...this.validateCpf(value)
+            }
+        });
+    }
+
+    handleBairroChange(event) {
+        const value = event.target.value;
+        this.setState({
+            bairro: {
+                text: value,
+                ...this.validateCpf(value)
+            }
+        });
+    }
+
+    handleCidadeChange(event) {
+        const value = event.target.value;
+        this.setState({
+            cidade: {
+                text: value,
+                ...this.validateCpf(value)
+            }
+        });
+    }
+
+    handleUfChange(event) {
+        const value = event.target.value;
+        this.setState({
+            uf: {
+                text: value,
+                ...this.validateCpf(value)
+            }
         });
     }
 
     isFormInvalid() {
-        if(this.state.question.validateStatus !== 'success') {
+        if(this.state.nome.validateStatus !== 'success') {
             return true;
         }
     
-        for(let i = 0; i < this.state.choices.length; i++) {
-            const choice = this.state.choices[i];            
-            if(choice.validateStatus !== 'success') {
-                return true;
-            }
-        }
+        // if(this.state.cpf.validateStatus !== 'success') {
+        //     return true;
+        // }
     }
 
-    render() {
-        const choiceViews = [];
-        this.state.choices.forEach((choice, index) => {
-            choiceViews.push(<ClienteChoice key={index} choice={choice} choiceNumber={index} removeChoice={this.removeChoice} handleChoiceChange={this.handleChoiceChange}/>);
-        });
+    render() {        
 
         return (
             <div className="new-cliente-container">
-                <h1 className="page-title">Create Cliente</h1>
+                <h1 className="page-title">Novo Cliente</h1>
                 <div className="new-cliente-content">
                     <Form onSubmit={this.handleSubmit} className="create-cliente-form">
-                        <FormItem validateStatus={this.state.question.validateStatus}
-                            help={this.state.question.errorMsg} className="cliente-form-row">
-                        <TextArea 
-                            placeholder="Enter your question"
-                            style = {{ fontSize: '16px' }} 
-                            autosize={{ minRows: 3, maxRows: 6 }} 
-                            name = "question"
-                            value = {this.state.question.text}
-                            onChange = {this.handleQuestionChange} />
+                        <FormItem validateStatus={this.state.nome.validateStatus}
+                            help={this.state.nome.errorMsg} className="cliente-form-row">
+                        <input 
+                            placeholder="Entre com seu nome"
+                            style = {{ fontSize: '16px' }}                              
+                            name = "nome"
+                            value = {this.state.nome.text}
+                            onChange = {this.handleNomeChange} />
                         </FormItem>
-                        {choiceViews}
-                        <FormItem className="cliente-form-row">
-                            <Button type="dashed" onClick={this.addChoice} disabled={this.state.choices.length === MAX_CHOICES}>
-                                <Icon type="plus" /> Add a choice
-                            </Button>
+                        <FormItem  className="cliente-form-row">
+                        <input 
+                            placeholder="CPF"
+                            style = {{ fontSize: '16px' }}                              
+                            name = "cpf"
+                            value = {this.state.cpf.text}
+                            onChange = {this.handleCpfChange} />
                         </FormItem>
-                        <FormItem className="cliente-form-row">
-                            <Col xs={24} sm={4}>
-                                Cliente length: 
-                            </Col>
-                            <Col xs={24} sm={20}>    
-                                <span style = {{ marginRight: '18px' }}>
-                                    <Select 
-                                        name="days"
-                                        defaultValue="1" 
-                                        onChange={this.handleClienteDaysChange}
-                                        value={this.state.clienteLength.days}
-                                        style={{ width: 60 }} >
-                                        {
-                                            Array.from(Array(8).keys()).map(i => 
-                                                <Option key={i}>{i}</Option>                                        
-                                            )
-                                        }
-                                    </Select> &nbsp;Days
-                                </span>
-                                <span>
-                                    <Select 
-                                        name="hours"
-                                        defaultValue="0" 
-                                        onChange={this.handleClienteHoursChange}
-                                        value={this.state.clienteLength.hours}
-                                        style={{ width: 60 }} >
-                                        {
-                                            Array.from(Array(24).keys()).map(i => 
-                                                <Option key={i}>{i}</Option>                                        
-                                            )
-                                        }
-                                    </Select> &nbsp;Hours
-                                </span>
-                            </Col>
+                        <FormItem  className="cliente-form-row">
+                        <input 
+                            placeholder="CEP"
+                            style = {{ fontSize: '16px' }}                              
+                            name = "cep"
+                            value = {this.state.cep.text}
+                            onChange = {this.handleCepChange} />
                         </FormItem>
+                        <FormItem  className="cliente-form-row">
+                        <input 
+                            placeholder="Logradouro"
+                            style = {{ fontSize: '16px' }}                              
+                            name = "logradouro"
+                            value = {this.state.logradouro.text}
+                            onChange = {this.handleLogradouroChange} />
+                        </FormItem>
+                        <FormItem  className="cliente-form-row">
+                        <input 
+                            placeholder="Bairro"
+                            style = {{ fontSize: '16px' }}                              
+                            name = "bairro"
+                            value = {this.state.bairro.text}
+                            onChange = {this.handleBairroChange} />
+                        </FormItem>
+                        <FormItem  className="cliente-form-row">
+                        <input 
+                            placeholder="Cidade"
+                            style = {{ fontSize: '16px' }}                              
+                            name = "cidade"
+                            value = {this.state.cidade.text}
+                            onChange = {this.handleCidadeChange} />
+                        </FormItem>
+                        <FormItem  className="cliente-form-row">
+                        <input 
+                            placeholder="UF"
+                            style = {{ fontSize: '16px' }}                              
+                            name = "uf"
+                            value = {this.state.uf.text}
+                            onChange = {this.handleUfChange} />
+                        </FormItem>
+                        
                         <FormItem className="cliente-form-row">
                             <Button type="primary" 
                                 htmlType="submit" 
                                 size="large" 
                                 disabled={this.isFormInvalid()}
-                                className="create-cliente-form-button">Create Cliente</Button>
+                                className="create-cliente-form-button">Adicionar Cliente</Button>
                         </FormItem>
                     </Form>
                 </div>    
             </div>
         );
     }
-}
-
-function ClienteChoice(props) {
-    return (
-        <FormItem validateStatus={props.choice.validateStatus}
-        help={props.choice.errorMsg} className="cliente-form-row">
-            <Input 
-                placeholder = {'Choice ' + (props.choiceNumber + 1)}
-                size="large"
-                value={props.choice.text} 
-                className={ props.choiceNumber > 1 ? "optional-choice": null}
-                onChange={(event) => props.handleChoiceChange(event, props.choiceNumber)} />
-
-            {
-                props.choiceNumber > 1 ? (
-                <Icon
-                    className="dynamic-delete-button"
-                    type="close"
-                    disabled={props.choiceNumber <= 1}
-                    onClick={() => props.removeChoice(props.choiceNumber)}
-                /> ): null
-            }    
-        </FormItem>
-    );
 }
 
 

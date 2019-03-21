@@ -1,4 +1,4 @@
-import { API_BASE_URL, POLL_LIST_SIZE, ACCESS_TOKEN } from '../constants';
+import { API_BASE_URL, CLIENTE_LIST_SIZE, ACCESS_TOKEN } from '../constants';
 
 const request = (options) => {
     const headers = new Headers({
@@ -25,7 +25,7 @@ const request = (options) => {
 
 export function getAllClientes(page, size) {
     page = page || 0;
-    size = size || POLL_LIST_SIZE;
+    size = size || CLIENTE_LIST_SIZE;
 
     return request({
         url: API_BASE_URL + "/clientes?page=" + page + "&size=" + size,
@@ -100,7 +100,7 @@ export function getUserProfile(username) {
 
 export function getUserCreatedClientes(username, page, size) {
     page = page || 0;
-    size = size || POLL_LIST_SIZE;
+    size = size || CLIENTE_LIST_SIZE;
 
     return request({
         url: API_BASE_URL + "/users/" + username + "/clientes?page=" + page + "&size=" + size,
@@ -110,7 +110,7 @@ export function getUserCreatedClientes(username, page, size) {
 
 export function getUserVotedClientes(username, page, size) {
     page = page || 0;
-    size = size || POLL_LIST_SIZE;
+    size = size || CLIENTE_LIST_SIZE;
 
     return request({
         url: API_BASE_URL + "/users/" + username + "/votes?page=" + page + "&size=" + size,

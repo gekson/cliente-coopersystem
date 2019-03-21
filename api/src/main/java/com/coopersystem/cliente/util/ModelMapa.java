@@ -18,6 +18,9 @@ public class ModelMapa {
         clienteResponse.setId(cliente.getId());
         clienteResponse.setNome(cliente.getNome());
         clienteResponse.setDataCriacao(cliente.getCreatedAt());
+        UsuarioSummary creatorSummary = new UsuarioSummary(creator.getId(), creator.getLogin(), creator.getLogin());
+        clienteResponse.setCreatedBy(creatorSummary);
+        clienteResponse.setCpf(cliente.getCpf());
 
         return clienteResponse;
     }

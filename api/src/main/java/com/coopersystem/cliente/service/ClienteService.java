@@ -85,6 +85,12 @@ public class ClienteService {
 	public Cliente addCliente(@Valid ClienteRequest clienteRequest) {
 		Cliente cliente = new Cliente();
         cliente.setNome(clienteRequest.getNome());
+        cliente.setCpf(clienteRequest.getCpf());
+        cliente.setCep(clienteRequest.getCep());
+        cliente.setLogradouro(clienteRequest.getLogradouro());
+        cliente.setBairro(clienteRequest.getBairro());
+        cliente.setCidade(clienteRequest.getCidade());
+        cliente.setUf(clienteRequest.getUf());
 
         return clienteRepository.save(cliente);
 	}

@@ -21,4 +21,10 @@ public class ClienteResponse {
 	private String nome;
 	private UsuarioSummary createdBy;
     private Instant dataCriacao;
+    private String cpf;
+	private String cep;
+	private String logradouro;
+	private String bairro;
+	private String cidade;
+	private String uf;
 }

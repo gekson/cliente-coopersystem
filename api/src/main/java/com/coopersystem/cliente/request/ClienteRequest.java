@@ -19,4 +19,10 @@ public class ClienteRequest {
 	@NotBlank
     @Size(max = 100)
     private String nome;
+	private String cpf;
+	private String cep;
+	private String logradouro;
+	private String bairro;
+	private String cidade;
+	private String uf;
 }

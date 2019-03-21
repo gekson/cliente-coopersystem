@@ -4,7 +4,7 @@ import Cliente from './Cliente';
 import { castVote } from '../util/APIUtils';
 import LoadingIndicator  from '../common/LoadingIndicator';
 import { Button, Icon, notification } from 'antd';
-import { POLL_LIST_SIZE } from '../constants';
+import { CLIENTE_LIST_SIZE } from '../constants';
 import { withRouter } from 'react-router-dom';
 import './ClienteList.css';
 
@@ -25,17 +25,10 @@ class ClienteList extends Component {
         this.handleLoadMore = this.handleLoadMore.bind(this);
     }
 
-    loadClienteList(page = 0, size = POLL_LIST_SIZE) {
+    loadClienteList(page = 0, size = CLIENTE_LIST_SIZE) {
         let promise;
-        if(this.props.username) {
-            if(this.props.type === 'USER_CREATED_POLLS') {
-                promise = getUserCreatedClientes(this.props.username, page, size);
-            } else if (this.props.type === 'USER_VOTED_POLLS') {
-                promise = getUserVotedClientes(this.props.username, page, size);                               
-            }
-        } else {
-            promise = getAllClientes(page, size);
-        }
+        
+        promise = getAllClientes(page, size);        
 
         if(!promise) {
             return;
